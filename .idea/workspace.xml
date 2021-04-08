@@ -1,7 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="6d35ba9e-d0cd-45e0-af1e-01392e859647" name="Default Changelist" comment="" />
+    <list default="true" id="6d35ba9e-d0cd-45e0-af1e-01392e859647" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/word/model/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/word/model/service_enum.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/word/model/word.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/word/service/post_service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/word/service/service_factory.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/word/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/word/cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/word/commands/cmd_cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/word/commands/cmd_cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/word/service/Delete.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/word/service/Post.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/word/service/Search.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/word/service/delete.py" beforeDir="false" afterPath="$PROJECT_DIR$/word/service/delete_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/word/service/search.py" beforeDir="false" afterPath="$PROJECT_DIR$/word/service/search_service.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +52,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JupyterTrust" id="e82942ee-fee1-4943-8dde-11e29bbe8d99" />
   <component name="ProjectId" id="1qtUCbHsTFICl2Fi7GT9sJxGCTy" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -27,6 +63,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -41,7 +78,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1617898254247</updated>
-      <workItem from="1617898255690" duration="3576000" />
+      <workItem from="1617898255690" duration="7681000" />
     </task>
     <servers />
   </component>
@@ -58,5 +95,16 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="85" y="25" key="SettingsEditor" timestamp="1617943757950">
+      <screen x="0" y="25" width="1152" height="695" />
+    </state>
+    <state x="85" y="25" key="SettingsEditor/0.25.1152.695@0.25.1152.695" timestamp="1617943757950" />
+    <state x="241" y="44" width="670" height="676" key="search.everywhere.popup" timestamp="1618022425709">
+      <screen x="0" y="25" width="1152" height="695" />
+    </state>
+    <state x="241" y="44" width="670" height="676" key="search.everywhere.popup/0.25.1152.695@0.25.1152.695" timestamp="1618022425709" />
   </component>
 </project>

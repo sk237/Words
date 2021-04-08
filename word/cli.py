@@ -23,6 +23,6 @@ class ComplexCLI(click.MultiCommand):
 
 @click.command(cls=ComplexCLI)
 def cli():
-    """Welcome to word command line iterface!"""
+    """Welcome to word command line interface!"""
     pass
 

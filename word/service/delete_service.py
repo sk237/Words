@@ -1,4 +1,7 @@
-from elasticsearch import Elasticsearch
+from elasticsearch import (
+    Elasticsearch,
+    NotFoundError,
+)
 
 
 class DeleteService:

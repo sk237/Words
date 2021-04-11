@@ -61,12 +61,12 @@ class PostService:
                     if 'examples' in definition:
                         examples.extend(definition.pop('examples'))
             sample_dict['word'].append(Word(word))
-            sample_dict['doc'].append(Doc(word, str(dictionary), examples))
+            sample_dict['doc'].append(Doc(word, str(dictionary)))
             sample_dict['examples'].append(Examples(examples))
 
     @staticmethod
-    def _draw_progress_bar(percent, barLen):
+    def _draw_progress_bar(percent, bar_len):
         # percent float from 0 to 1.
         sys.stdout.write("\r")
-        sys.stdout.write("[{:<{}}] {:.0f}%".format("=" * int(barLen * percent), barLen, percent * 100))
+        sys.stdout.write("[{:<{}}] {:.0f}%".format("=" * int(bar_len * percent), bar_len, percent * 100))
         sys.stdout.flush()

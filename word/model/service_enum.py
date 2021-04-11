@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Command(Enum):
+class CommandEnum(Enum):
     POST = 'post'
     SEARCH = 'search'
     DELETE = 'delete'

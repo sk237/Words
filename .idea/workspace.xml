@@ -20,22 +20,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d35ba9e-d0cd-45e0-af1e-01392e859647" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/word/model/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/word/model/service_enum.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/word/model/word.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/word/service/post_service.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/word/service/service_factory.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/word/model/doc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/word/model/examples.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/word/model/sample_word.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/word/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/word/cli.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/word/commands/cmd_cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/word/commands/cmd_cli.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/word/service/Delete.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/word/service/Post.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/word/service/Search.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/word/service/delete.py" beforeDir="false" afterPath="$PROJECT_DIR$/word/service/delete_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/word/service/search.py" beforeDir="false" afterPath="$PROJECT_DIR$/word/service/search_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/word/model/service_enum.py" beforeDir="false" afterPath="$PROJECT_DIR$/word/model/service_enum.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/word/model/word.py" beforeDir="false" afterPath="$PROJECT_DIR$/word/model/word.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/word/service/delete_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/word/service/delete_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/word/service/post_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/word/service/post_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/word/service/search_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/word/service/search_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/word/service/service_factory.py" beforeDir="false" afterPath="$PROJECT_DIR$/word/service/service_factory.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,9 +97,9 @@
       <screen x="0" y="25" width="1152" height="695" />
     </state>
     <state x="85" y="25" key="SettingsEditor/0.25.1152.695@0.25.1152.695" timestamp="1617943757950" />
-    <state x="241" y="44" width="670" height="676" key="search.everywhere.popup" timestamp="1618022425709">
+    <state x="241" y="44" width="670" height="676" key="search.everywhere.popup" timestamp="1618068001790">
       <screen x="0" y="25" width="1152" height="695" />
     </state>
-    <state x="241" y="44" width="670" height="676" key="search.everywhere.popup/0.25.1152.695@0.25.1152.695" timestamp="1618022425709" />
+    <state x="241" y="44" width="670" height="676" key="search.everywhere.popup/0.25.1152.695@0.25.1152.695" timestamp="1618068001790" />
   </component>
 </project>

@@ -1,6 +1,6 @@
 import click
 
-from word.model.service_enum import Command
+from word.model.service_enum import CommandEnum
 from word.service.service_factory import ServiceFactory
 
 
@@ -38,8 +38,8 @@ class Context:
     def __init__(self):
         self.host = '[localhost]:'
         self.port = '9200'
-        self.index = 'samples'
-        self.factory = ServiceFactory(self.host, self.port, self.index)
+        self.indices = ['word', 'doc', 'examples']
+        self.factory = ServiceFactory(self.host, self.port, self.indices)
 
 
 @click.group()
@@ -54,7 +54,7 @@ def cli(ctx):
 @click.pass_context
 def post(ctx, file_path):
     """Save sample words to elasticsearch"""
-    ctx.obj.factory.mapper(Command.POST).run(file_path=file_path)
+    ctx.obj.factory.mapper(CommandEnum.POST).run(file_path=file_path)
 
 
 @cli.command()
@@ -62,22 +62,24 @@ def post(ctx, file_path):
 def delete(ctx):
     """Delete stored words in elasticsearch"""
     if click.confirm("Do you want to delete stored words?"):
-        ctx.obj.factory.mapper(Command.DELETE).run()
+        ctx.obj.factory.mapper(CommandEnum.DELETE).run()
 
 
 @cli.command()
 @click.argument("args", nargs=-1)
 @click.option("-n", "--num", type=int, help="how many relevant words do you need?", default=2, show_default=True)
-@click.option("-w", "--word", "key", type=str, help="Do you want to search by word?",
-              flag_value='key', default=True, show_default=True, cls=OnceSameNameOption)
-@click.option("-s", "--sentence", "key", type=str, help="Do you want to search by example sentence?",
+@click.option("-w", "--word", 'key', type=str, help="Do you want to search by word?",
+              flag_value='word', default=True, show_default=True, cls=OnceSameNameOption)
+@click.option("-e", "--examples", 'key', type=str, help="Do you want to search by example sentence?",
               flag_value='examples', cls=OnceSameNameOption)
+@click.option("-d", "--doc", 'key', type=str, help="Do you want to search for dictionary?",
+              flag_value='doc', cls=OnceSameNameOption)
 @click.pass_context
 def search(ctx, args, num, key):
     """Search word or example sentence in elasticsearch"""
     word = ' '.join(args)
     if len(word) != 0:
-        ctx.obj.factory.mapper(Command.SEARCH).run(key, word, num)
+        ctx.obj.factory.mapper(CommandEnum.SEARCH).run(key, word, num)
     else:
         click.echo("Usage: word cli search [OPTIONS] ARGS")
         click.echo("Try 'word cli search --help' for help.")

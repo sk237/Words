@@ -1,20 +1,18 @@
 import pprint
 
 import click
-import yaml
 from elasticsearch import Elasticsearch
 
 
 class SearchService:
 
-    def __init__(self, elastic_search: Elasticsearch, index):
+    def __init__(self, elastic_search: Elasticsearch):
         self.es = elastic_search
-        self.index = index
 
-    def run(self, key: str, word: str, size: int):
-        if not self.es.indices.exists(index=self.index):
-            click.echo()
-            click.echo("NotFoundError: Post sample words before search")
+    def run(self, key: str, value: str, size: int):
+        if not self.es.indices.exists(index=key):
+            print()
+            print("NotFoundError: Post sample words before search")
             return
 
         doc = {
@@ -22,19 +20,23 @@ class SearchService:
             "query": {
                 "match": {
                     key: {
-                        "query": word,
+                        "query": value,
                         "fuzziness": 'auto',
                     }
                 }
             }
         }
-        res = self.es.search(body=doc, index=self.index)
+        res = self.es.search(body=doc, index=key)
+
+        self.print_response(res)
+
+    @staticmethod
+    def print_response(res):
         for hit in res['hits']['hits']:
             source = hit['_source']
             click.echo('-*-' * 30)
-            click.echo('key word: ', source['key'])
-            if source['examples']:
-                click.echo('examples: ', source['examples'])
-            click.echo()
-            pprint.pprint(yaml.load(source['description'], yaml.Loader))
+            for source_key in source:
+                source_value = source[source_key]
+                pprint.pprint('%s: %s' % (source_key, source_value))
+                click.echo()
             click.echo('-*-' * 30)

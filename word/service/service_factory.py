@@ -1,6 +1,6 @@
 from elasticsearch import Elasticsearch
 
-from word.model.service_enum import Command
+from word.model.service_enum import CommandEnum
 from word.service.delete_service import DeleteService
 from word.service.post_service import PostService
 from word.service.search_service import SearchService
@@ -8,14 +8,14 @@ from word.service.search_service import SearchService
 
 class ServiceFactory:
 
-    def __init__(self, host: str, port: str, index: str):
+    def __init__(self, host: str, port: str, indices: list[str]):
         self.es = Elasticsearch(host + port)
-        self.index = index
+        self.indices = indices
 
-    def mapper(self, command: Command):
-        if command == Command.POST:
-            return PostService(self.es, self.index)
-        elif command == Command.DELETE:
-            return DeleteService(self.es, self.index)
-        elif command == Command.SEARCH:
-            return SearchService(self.es, self.index)
+    def mapper(self, command_enum: CommandEnum):
+        if command_enum == CommandEnum.POST:
+            return PostService(self.es, self.indices)
+        elif command_enum == CommandEnum.DELETE:
+            return DeleteService(self.es, self.indices)
+        elif command_enum == CommandEnum.SEARCH:
+            return SearchService(self.es)

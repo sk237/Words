@@ -1,9 +1,8 @@
-class Word:
-    key: str
-    description: str
-    examples = list[str]
+from word.model.sample_word import SampleWord
 
-    def __init__(self, key: str, description: str, examples: list[str]):
-        self.key = key
-        self.description = description
-        self.examples = examples
+
+class Word(SampleWord):
+    word: str
+
+    def __init__(self, word):
+        self.word = word

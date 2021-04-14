@@ -1,12 +1,17 @@
 from elasticsearch_dsl import (
     Document,
     Integer,
-    Text,
+    Text, analyzer,
 )
+
+folding_analyzer = analyzer('folding_analyzer',
+                            tokenizer="standard",
+                            filter=["lowercase", "asciifolding"]
+                            )
 
 
 class Dictionary(Document):
-    word: Text()
+    word: Text(analyzer=folding_analyzer)
     definitions: Text()
     syllables: Text()
     pronunciation: Text()
@@ -14,7 +19,7 @@ class Dictionary(Document):
     frequency: Text()
     letters: Integer()
     sounds: Integer()
-    examples: list[Text()]
+    examples: list[Text(analyzer=folding_analyzer)]
 
     class Index:
         name = 'dictionary'

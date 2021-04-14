@@ -21,6 +21,8 @@ class PostService:
 
         bulk_list = []
 
+        Dictionary.init(index=self.index, using=self.es)
+
         for sample in word_list:
             bulk_list.append({
                 '_index': self.index,

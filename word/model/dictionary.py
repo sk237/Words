@@ -1,13 +1,15 @@
 from elasticsearch_dsl import (
+    analyzer,
     Document,
     Integer,
-    Text, analyzer,
+    Text,
 )
 
-folding_analyzer = analyzer('folding_analyzer',
-                            tokenizer="standard",
-                            filter=["lowercase", "asciifolding"]
-                            )
+folding_analyzer = analyzer(
+    'folding_analyzer',
+    tokenizer="standard",
+    filter=["lowercase", "asciifolding"]
+)
 
 
 class Dictionary(Document):

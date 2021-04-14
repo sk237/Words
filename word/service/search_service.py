@@ -27,7 +27,6 @@ class SearchService:
             }
         }
         res = self.es.search(body=doc, index=self.index)
-
         self._print_response(res)
 
     @staticmethod
@@ -35,7 +34,10 @@ class SearchService:
         for hit in res['hits']['hits']:
             source = hit['_source']
             print('-*-' * 30)
+            print('%s: %s' % ('word', source['word']))
             for source_key in source:
+                if source_key == 'word':
+                    continue
                 source_value = source[source_key]
                 print()
                 print('%s: %s' % (source_key, source_value))

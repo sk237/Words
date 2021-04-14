@@ -11,7 +11,7 @@ from elasticmock import (
     FakeElasticsearch,
 )
 
-from word.utils import WordFactory, DocFactory, ExamplesFactory
+from word.utils import DocFactory
 from word.service.post_service import PostService
 
 
@@ -19,40 +19,39 @@ class PostServiceTest(TestCase):
     @elasticmock
     def setUp(self):
         super().setUp()
-        self.indices = ['word', 'doc', 'examples']
+        self.index = 'dictionary'
 
         self.es = elasticsearch.Elasticsearch(hosts=[{'host': 'localhost', 'port': 9200}])
-        self.post_service = PostService(self.es, self.indices)
+        self.post_service = PostService(self.es, self.index)
 
     def test_should_create_fake_es_instance(self):
         self.assertIsInstance(self.es, FakeElasticsearch)
 
     @unittest.mock.patch('elasticmock.FakeElasticsearch.bulk')
-    def test_post_to_elasticsearch_bulk_is_called_thrice(self, mocked_bulk):
-        sample_dict = {
-            'word': [WordFactory.create()],
-            'doc': [DocFactory.create()],
-            'examples': [ExamplesFactory.create()],
-        }
+    @unittest.mock.patch('word.service.post_service.PostService._draw_progress_bar')
+    def test_post_to_elasticsearch_bulk_is_called_thrice(self, mocked_bulk, _):
+        word_list = [DocFactory.create(), DocFactory.create(), DocFactory.create()]
 
-        self.post_service.run(sample_dict)
-        self.assertEqual(mocked_bulk.call_count, 3)
+        self.post_service.run(word_list)
+        self.assertEqual(mocked_bulk.call_count, 1)
 
     @unittest.mock.patch('elasticmock.FakeElasticsearch.bulk')
-    def test_post_to_elasticsearch_bulk_batch_once(self, mocked_bulk):
-        sample_dict = {'examples': []}
+    @unittest.mock.patch('word.service.post_service.PostService._draw_progress_bar')
+    def test_post_to_elasticsearch_bulk_batch_once(self, mocked_bulk, _):
+        word_list = []
         for i in range(499):
-            sample_dict['examples'].append(ExamplesFactory.create())
+            word_list.append(DocFactory.create())
 
-        self.post_service.run(sample_dict)
+        self.post_service.run(word_list)
         mocked_bulk.assert_called_once()
 
     @unittest.mock.patch('elasticmock.FakeElasticsearch.bulk')
-    def test_post_to_elasticsearch_bulk_batch_twice(self, mocked_bulk):
-        sample_dict = {'examples': []}
+    @unittest.mock.patch('word.service.post_service.PostService._draw_progress_bar')
+    def test_post_to_elasticsearch_bulk_batch_twice(self, mocked_bulk, _):
+        word_list = []
         for i in range(501):
-            sample_dict['examples'].append(WordFactory.create())
-        self.post_service.run(sample_dict)
+            word_list.append(DocFactory.create())
+        self.post_service.run(word_list)
         self.assertEqual(mocked_bulk.call_count, 2)
 
     @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)

@@ -6,10 +6,9 @@ from elasticsearch import (
 
 class DeleteService:
 
-    def __init__(self, elastic_search: Elasticsearch, indices: list[str]):
+    def __init__(self, elastic_search: Elasticsearch, index: str):
         self.es = elastic_search
-        self.indices = indices
+        self.index = index
 
     def run(self):
-        for index in self.indices:
-            self.es.indices.delete(index, ignore=[400, 404])
+        self.es.indices.delete(self.index, ignore=[400, 404])

@@ -1,4 +1,3 @@
-import json
 import sys
 
 from elasticsearch import (
@@ -6,44 +5,36 @@ from elasticsearch import (
     helpers,
 )
 
-
-from word.model.doc import Doc
-from word.model.examples import Examples
-from word.model.sample_word import SampleWord
-from word.model.word import Word
+from word.model.dictionary import Dictionary
 
 
 class PostService:
 
-    def __init__(self, elastic_search: Elasticsearch, indices: list[str]):
+    def __init__(self, elastic_search: Elasticsearch, index: str):
         self.es = elastic_search
-        self.indices = indices
+        self.index = index
         self.batch = 500
 
-    def run(self, sample_dict):
+    def run(self, word_list: list[Dictionary]):
         progress = 0
-        word_list_size = 0
-        word_list_size += sum(len(sample_dict[sample]) for sample in sample_dict)
+        word_list_size = len(word_list)
 
-        bulk_dict: dict[str, []] = {index: [] for index in self.indices}
+        bulk_list = []
 
-        for index in sample_dict:
-            for sample in sample_dict[index]:
-                bulk_dict.get(index).append({
-                    '_index': index,
-                    '_source': sample.__dict__,
-                })
-                progress += 1
+        for sample in word_list:
+            bulk_list.append({
+                '_index': self.index,
+                '_source': sample.to_dict(),
+            })
+            progress += 1
 
-                if progress % self.batch == 0:
-                    helpers.bulk(self.es, bulk_dict.get(index))
-                    bulk_dict.get(index).clear()
-                    self._draw_progress_bar(progress / word_list_size, 40)
+            if len(bulk_list) % self.batch == 0:
+                helpers.bulk(self.es, bulk_list)
+                bulk_list.clear()
+                self._draw_progress_bar(progress / word_list_size, 40)
 
-            helpers.bulk(self.es, bulk_dict.get(index))
-            self._draw_progress_bar(progress / word_list_size, 40)
-
-
+        helpers.bulk(self.es, bulk_list)
+        self._draw_progress_bar(progress / word_list_size, 40)
 
     @staticmethod
     def _draw_progress_bar(percent, bar_len):

@@ -1,7 +1,10 @@
 import click
 
-from word.utils import CommandEnum, JsonParser
-from word.utils import CommandFactory
+from word.commands.utils import (
+    CommandFactory,
+    JsonParser,
+)
+from word.utils import CommandEnum
 
 
 class OnceSameNameOption(click.Option):
@@ -38,9 +41,9 @@ class Context:
     def __init__(self):
         self.host = '[localhost]:'
         self.port = '9200'
-        self.indices = ['word', 'doc', 'examples']
-        self.factory = CommandFactory(self.host, self.port, self.indices)
-        self.parser = JsonParser(self.indices)
+        self.index = 'dictionary'
+        self.factory = CommandFactory(self.host, self.port, self.index)
+        self.parser = JsonParser()
 
 
 @click.group()
@@ -55,8 +58,8 @@ def cli(ctx):
 @click.pass_context
 def post(ctx, file_path):
     """Save sample words to elasticsearch"""
-    sample_dict = ctx.obj.parser.parse_to_dic(file_path=file_path)
-    ctx.obj.factory.mapper(CommandEnum.POST).run(sample_dict=sample_dict)
+    word_list = ctx.obj.parser.parse_to_obj(file_path=file_path)
+    ctx.obj.factory.mapper(CommandEnum.POST).run(word_list=word_list)
 
 
 @cli.command()
@@ -74,8 +77,6 @@ def delete(ctx):
               flag_value='word', default=True, show_default=True, cls=OnceSameNameOption)
 @click.option("-e", "--examples", 'key', type=str, help="Do you want to search by example sentence?",
               flag_value='examples', cls=OnceSameNameOption)
-@click.option("-d", "--doc", 'key', type=str, help="Do you want to search for dictionary?",
-              flag_value='doc', cls=OnceSameNameOption)
 @click.pass_context
 def search(ctx, args, size, key):
     """Search word or example sentence in elasticsearch"""

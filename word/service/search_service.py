@@ -1,4 +1,3 @@
-
 from elasticsearch import (
     Elasticsearch,
     NotFoundError,
@@ -7,11 +6,12 @@ from elasticsearch import (
 
 class SearchService:
 
-    def __init__(self, elastic_search: Elasticsearch):
+    def __init__(self, elastic_search: Elasticsearch, index):
         self.es = elastic_search
+        self.index = index
 
     def run(self, key: str, value: str, size: int):
-        if not self.es.indices.exists(index=key):
+        if not self.es.indices.exists(index=self.index):
             raise NotFoundError("Post sample words before search")
 
         doc = {
@@ -20,17 +20,18 @@ class SearchService:
                 "match": {
                     key: {
                         "query": value,
-                        "fuzziness": 'auto',
+                        "fuzziness": "auto",
+                        'fuzzy_transpositions': True,
                     }
                 }
             }
         }
-        res = self.es.search(body=doc, index=key)
+        res = self.es.search(body=doc, index=self.index)
 
-        self.print_response(res)
+        self._print_response(res)
 
     @staticmethod
-    def print_response(res):
+    def _print_response(res):
         for hit in res['hits']['hits']:
             source = hit['_source']
             print('-*-' * 30)

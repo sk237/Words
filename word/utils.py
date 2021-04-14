@@ -2,11 +2,7 @@ from enum import Enum
 
 import factory
 
-from word.model import (
-    doc,
-    examples,
-    word,
-)
+from word.model import dictionary
 
 
 class CommandEnum(Enum):
@@ -15,23 +11,16 @@ class CommandEnum(Enum):
     DELETE = 'delete'
 
 
-class WordFactory(factory.Factory):
-    class Meta:
-        model = word.Word
-
-    word = factory.Sequence(lambda n: f'word-{n}')
-
-
 class DocFactory(factory.Factory):
     class Meta:
-        model = doc.Doc
+        model = dictionary.Dictionary
 
-    doc = factory.Sequence(lambda n: f'doc-{n}')
-    dictionary = factory.Sequence(lambda n: f'dictionary-{n}')
-
-
-class ExamplesFactory(factory.Factory):
-    class Meta:
-        model = examples.Examples
-
-    examples = factory.Sequence(lambda n: f'examples-{n}')
+    word = factory.Sequence(lambda n: f'word-{n}')
+    definitions = factory.Sequence(lambda n: f'definitions-{n}')
+    syllables = factory.Sequence(lambda n: f'syllables-{n}')
+    pronunciation = factory.Sequence(lambda n: f'pronunciation-{n}')
+    rhyme_patterns = factory.Sequence(lambda n: f'rhyme_patterns-{n}')
+    frequency = factory.Sequence(lambda n: f'frequency-{n}')
+    letters = factory.Sequence(lambda n: f'letters-{n}')
+    sounds = factory.Sequence(lambda n: f'sounds-{n}')
+    examples = factory.List([factory.Sequence(lambda n : f'example-{n}') for _ in range(5)])

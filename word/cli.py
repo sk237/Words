@@ -16,7 +16,8 @@ class ComplexCLI(click.MultiCommand):
     def get_command(self, ctx, name):
         try:
             mod = __import__(f"word.commands.cmd_{name}", None, None, ["cli"])
-        except ImportError:
+        except ImportError as e:
+            print(e)
             return
         return mod.cli
 
@@ -25,4 +26,3 @@ class ComplexCLI(click.MultiCommand):
 def cli():
     """Welcome to word command line interface!"""
     pass
-

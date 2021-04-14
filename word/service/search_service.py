@@ -6,11 +6,12 @@ from elasticsearch import (
 
 class SearchService:
 
-    def __init__(self, elastic_search: Elasticsearch):
+    def __init__(self, elastic_search: Elasticsearch, index):
         self.es = elastic_search
+        self.index = index
 
     def run(self, key: str, value: str, size: int):
-        if not self.es.indices.exists(index=key):
+        if not self.es.indices.exists(index=self.index):
             raise NotFoundError("Post sample words before search")
 
         doc = {
@@ -25,8 +26,8 @@ class SearchService:
                 }
             }
         }
-        res = self.es.search(body=doc, index=key)
-        print(res)
+        res = self.es.search(body=doc, index=self.index)
+
         self._print_response(res)
 
     @staticmethod

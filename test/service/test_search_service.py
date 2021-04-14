@@ -21,12 +21,12 @@ class SearchServiceTest(TestCase):
     @elasticmock
     def setUp(self):
         super().setUp()
-        self.indices = ['key']
+        self.index = 'key'
         self.body = {
             'key': 'value'
         }
         self.es = elasticsearch.Elasticsearch(hosts=[{'host': 'localhost', 'port': 9200}])
-        self.search_service = SearchService(self.es)
+        self.search_service = SearchService(self.es, self.index)
         self.response = {
             'hits': {
                 'hits': [

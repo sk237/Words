@@ -1,16 +1,9 @@
-import json
 import sys
 
 from elasticsearch import (
     Elasticsearch,
     helpers,
 )
-
-
-from word.model.doc import Doc
-from word.model.examples import Examples
-from word.model.sample_word import SampleWord
-from word.model.word import Word
 
 
 class PostService:
@@ -28,6 +21,22 @@ class PostService:
         bulk_dict: dict[str, []] = {index: [] for index in self.indices}
 
         for index in sample_dict:
+            body = {
+                'settings': {
+                    'index': {
+                        'number_of_shards': 3
+                    }
+                },
+                "mappings": {
+                    "properties": {
+                        index: {
+                            "type": "text",
+                        },
+                    },
+                },
+            }
+            self.es.indices.create(index, body=body)
+
             for sample in sample_dict[index]:
                 bulk_dict.get(index).append({
                     '_index': index,
@@ -35,15 +44,13 @@ class PostService:
                 })
                 progress += 1
 
-                if progress % self.batch == 0:
+                if len(bulk_dict[index]) % self.batch == 0:
                     helpers.bulk(self.es, bulk_dict.get(index))
                     bulk_dict.get(index).clear()
                     self._draw_progress_bar(progress / word_list_size, 40)
 
             helpers.bulk(self.es, bulk_dict.get(index))
             self._draw_progress_bar(progress / word_list_size, 40)
-
-
 
     @staticmethod
     def _draw_progress_bar(percent, bar_len):

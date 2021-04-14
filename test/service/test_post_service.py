@@ -28,7 +28,8 @@ class PostServiceTest(TestCase):
         self.assertIsInstance(self.es, FakeElasticsearch)
 
     @unittest.mock.patch('elasticmock.FakeElasticsearch.bulk')
-    def test_post_to_elasticsearch_bulk_is_called_thrice(self, mocked_bulk):
+    @unittest.mock.patch('word.service.post_service.PostService._draw_progress_bar')
+    def test_post_to_elasticsearch_bulk_is_called_thrice(self, mocked_bulk, _):
         sample_dict = {
             'word': [WordFactory.create()],
             'doc': [DocFactory.create()],
@@ -39,7 +40,8 @@ class PostServiceTest(TestCase):
         self.assertEqual(mocked_bulk.call_count, 3)
 
     @unittest.mock.patch('elasticmock.FakeElasticsearch.bulk')
-    def test_post_to_elasticsearch_bulk_batch_once(self, mocked_bulk):
+    @unittest.mock.patch('word.service.post_service.PostService._draw_progress_bar')
+    def test_post_to_elasticsearch_bulk_batch_once(self, mocked_bulk, _):
         sample_dict = {'examples': []}
         for i in range(499):
             sample_dict['examples'].append(ExamplesFactory.create())
@@ -48,7 +50,8 @@ class PostServiceTest(TestCase):
         mocked_bulk.assert_called_once()
 
     @unittest.mock.patch('elasticmock.FakeElasticsearch.bulk')
-    def test_post_to_elasticsearch_bulk_batch_twice(self, mocked_bulk):
+    @unittest.mock.patch('word.service.post_service.PostService._draw_progress_bar')
+    def test_post_to_elasticsearch_bulk_batch_twice(self, mocked_bulk, _):
         sample_dict = {'examples': []}
         for i in range(501):
             sample_dict['examples'].append(WordFactory.create())

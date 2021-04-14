@@ -1,7 +1,10 @@
 import click
 
-from word.utils import CommandEnum, JsonParser
-from word.utils import CommandFactory
+from word.commands.utils import (
+    CommandFactory,
+    JsonParser,
+)
+from word.utils import CommandEnum
 
 
 class OnceSameNameOption(click.Option):

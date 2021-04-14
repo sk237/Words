@@ -1,4 +1,3 @@
-
 from elasticsearch import (
     Elasticsearch,
     NotFoundError,
@@ -20,17 +19,18 @@ class SearchService:
                 "match": {
                     key: {
                         "query": value,
-                        "fuzziness": 'auto',
+                        "fuzziness": "auto",
+                        'fuzzy_transpositions': True,
                     }
                 }
             }
         }
         res = self.es.search(body=doc, index=key)
-
-        self.print_response(res)
+        print(res)
+        self._print_response(res)
 
     @staticmethod
-    def print_response(res):
+    def _print_response(res):
         for hit in res['hits']['hits']:
             source = hit['_source']
             print('-*-' * 30)

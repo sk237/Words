@@ -5,6 +5,7 @@ from elasticsearch_dsl import (
     Text,
 )
 
+
 folding_analyzer = analyzer(
     'folding_analyzer',
     tokenizer="standard",

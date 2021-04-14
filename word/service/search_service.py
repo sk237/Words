@@ -27,6 +27,7 @@ class SearchService:
             }
         }
         res = self.es.search(body=doc, index=self.index)
+
         self._print_response(res)
 
     @staticmethod

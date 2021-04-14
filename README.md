@@ -26,7 +26,7 @@ words
 │   ├── config.py
 │   ├── model
 │   │   ├── __init__.py
-│   │   ├── dictionary.py
+│   │   └── dictionary.py
 │   ├── service
 │   │   ├── __init__.py
 │   │   ├── delete_service.py
@@ -37,6 +37,7 @@ words
 ```
 
 --------------------------------------------------------------------------------------------
+
 
 Setup
 
@@ -163,5 +164,3 @@ Search의 성능 향상
     Nutella의 영어 공부를 위한 시스템을 만드는 것 이기 때문에, 단어와 예문은 영어로 한정된다. 이 경우 ASCII folding token filter를 사용하면 
     검색 성능을 향상시킬 수 있다. benchmark는 성능 ASCII folding을 적용한것과 하지 않은것의 성능 차이를 보여준다.
     
-```
-

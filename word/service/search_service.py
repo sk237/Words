@@ -14,18 +14,7 @@ class SearchService:
         if not self.es.indices.exists(index=self.index):
             raise NotFoundError("Post sample words before search")
 
-        doc = {
-            "size": size,
-            "query": {
-                "match": {
-                    key: {
-                        "query": value,
-                        "fuzziness": "auto",
-                        'fuzzy_transpositions': True,
-                    }
-                }
-            }
-        }
+        doc = self._build_performance_template(size, key, value)
         res = self.es.search(body=doc, index=self.index)
         self._print_response(res)
 
@@ -43,3 +32,60 @@ class SearchService:
                 print('%s: %s' % (source_key, source_value))
             print()
             print('-*-' * 30)
+
+    @staticmethod
+    def _build_best_search_template(size, key, value) -> dict:
+        return {
+            "size": size,
+            "query": {
+                "bool": {
+                    "should": [
+                        {
+                            "match": {
+                                key: {
+                                    "query": value,
+                                    "fuzziness": "auto",
+                                    'fuzzy_transpositions': True,
+                                    "prefix_length": 1,
+                                }
+                            }
+                        },
+                        {
+                            "match": {
+                                key: {
+                                    "query": value,
+                                    "fuzziness": "auto",
+                                    'fuzzy_transpositions': True,
+                                    "prefix_length": 1,
+                                    "operator": "and"
+                                }
+                            }
+                        },
+                        {
+                            "match_phrase": {
+                                key: {
+                                    "query": value,
+                                    "boost": 2
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+
+    @staticmethod
+    def _build_performance_template(size, key, value) -> dict:
+        return {
+            "size": size,
+            "query": {
+                "match": {
+                    key: {
+                        "query": value,
+                        "fuzziness": "auto",
+                        'fuzzy_transpositions': True,
+                        "prefix_length": 1,
+                    }
+                }
+            }
+        }
